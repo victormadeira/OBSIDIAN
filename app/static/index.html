@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBSIDIAN — Knowledge Base</title>
+    <title>OBSIDIAN — AI Knowledge Base</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 </head>
@@ -15,18 +15,24 @@
     <aside id="sidebar">
         <div class="sidebar-header">
             <div class="logo">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                </svg>
+                <div class="logo-diamond">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" fill="url(#grad1)" opacity="0.9"/>
+                        <path d="M2 17l10 5 10-5" stroke="url(#grad1)" stroke-width="2" fill="none"/>
+                        <path d="M2 12l10 5 10-5" stroke="url(#grad1)" stroke-width="2" fill="none" opacity="0.6"/>
+                        <defs><linearGradient id="grad1" x1="0" y1="0" x2="24" y2="24">
+                            <stop offset="0%" stop-color="#89b4fa"/><stop offset="100%" stop-color="#cba6f7"/>
+                        </linearGradient></defs>
+                    </svg>
+                </div>
                 <span class="logo-text">OBSIDIAN</span>
+                <span class="logo-badge">v2</span>
             </div>
         </div>
 
         <div class="sidebar-search">
             <div class="search-input-wrapper">
-                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
                 <input type="text" id="sidebar-search" placeholder="Buscar notas..." autocomplete="off">
                 <kbd class="search-kbd">Ctrl+P</kbd>
             </div>
@@ -34,19 +40,23 @@
 
         <nav class="sidebar-nav">
             <a href="#/" class="nav-item" data-view="notes">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
                 <span>Notas</span>
             </a>
             <a href="#/graph" class="nav-item" data-view="graph">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
                 <span>Grafo</span>
             </a>
             <a href="#/context" class="nav-item" data-view="context">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 <span>Contexto IA</span>
             </a>
+            <a href="#/semantic" class="nav-item" data-view="semantic">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+                <span>Semantica</span>
+            </a>
             <a href="#/tags" class="nav-item" data-view="tags">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
                 <span>Tags</span>
             </a>
         </nav>
@@ -54,13 +64,11 @@
         <div class="sidebar-notes-header">
             <span>Notas recentes</span>
             <button id="btn-new-note" class="btn-icon" title="Nova nota (Ctrl+N)">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
         </div>
 
-        <div id="note-list" class="note-list">
-            <!-- Populated by JS -->
-        </div>
+        <div id="note-list" class="note-list"></div>
 
         <div class="sidebar-footer">
             <div class="stats" id="sidebar-stats"></div>
@@ -69,23 +77,61 @@
 
     <!-- Main Content -->
     <main id="main-content">
-        <!-- Welcome / Empty state -->
+        <!-- Welcome View -->
         <div id="view-welcome" class="view active">
             <div class="welcome-container">
+                <div class="welcome-glow"></div>
                 <div class="welcome-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                        <path d="M2 17l10 5 10-5"/>
-                        <path d="M2 12l10 5 10-5"/>
+                    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke-width="1.2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" fill="url(#wg)" opacity="0.6"/>
+                        <path d="M2 17l10 5 10-5" stroke="url(#wg)" stroke-width="1.5" fill="none"/>
+                        <path d="M2 12l10 5 10-5" stroke="url(#wg)" stroke-width="1.5" fill="none" opacity="0.5"/>
+                        <defs><linearGradient id="wg" x1="0" y1="0" x2="24" y2="24">
+                            <stop offset="0%" stop-color="#89b4fa"/><stop offset="50%" stop-color="#cba6f7"/><stop offset="100%" stop-color="#f5c2e7"/>
+                        </linearGradient></defs>
                     </svg>
                 </div>
-                <h1>OBSIDIAN</h1>
-                <p class="welcome-subtitle">Sistema de Knowledge Base para alimentar o cerebro da IA</p>
-                <div class="welcome-shortcuts">
-                    <div class="shortcut"><kbd>Ctrl+N</kbd> Nova nota</div>
-                    <div class="shortcut"><kbd>Ctrl+P</kbd> Buscar</div>
-                    <div class="shortcut"><kbd>Ctrl+S</kbd> Salvar</div>
-                    <div class="shortcut"><kbd>Ctrl+G</kbd> Grafo</div>
+                <h1 class="welcome-title">OBSIDIAN</h1>
+                <p class="welcome-subtitle">Knowledge Base semantica para alimentar o cerebro da IA</p>
+                <div class="welcome-cards">
+                    <div class="welcome-card" onclick="document.getElementById('btn-new-note').click()">
+                        <div class="wc-icon" style="color:var(--green)">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                        <div class="wc-text">
+                            <strong>Criar Nota</strong>
+                            <span>Comece documentando conhecimento</span>
+                        </div>
+                        <kbd>Ctrl+N</kbd>
+                    </div>
+                    <div class="welcome-card" onclick="window.location.hash='/graph'">
+                        <div class="wc-icon" style="color:var(--accent)">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+                        </div>
+                        <div class="wc-text">
+                            <strong>Ver Grafo</strong>
+                            <span>Visualize conexoes semanticas</span>
+                        </div>
+                        <kbd>Ctrl+G</kbd>
+                    </div>
+                    <div class="welcome-card" onclick="window.location.hash='/context'">
+                        <div class="wc-icon" style="color:var(--purple)">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
+                        </div>
+                        <div class="wc-text">
+                            <strong>Contexto IA</strong>
+                            <span>Exporte para alimentar a IA</span>
+                        </div>
+                    </div>
+                    <div class="welcome-card" onclick="window.location.hash='/semantic'">
+                        <div class="wc-icon" style="color:var(--teal)">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+                        </div>
+                        <div class="wc-text">
+                            <strong>Semantica</strong>
+                            <span>Clusters, hubs e similaridade</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,49 +139,103 @@
         <!-- Editor View -->
         <div id="view-editor" class="view">
             <div class="editor-toolbar">
+                <div class="editor-breadcrumb">
+                    <a href="#/" class="breadcrumb-link">Notas</a>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+                    <span id="breadcrumb-title" class="breadcrumb-current"></span>
+                </div>
                 <div class="editor-title-bar">
                     <input type="text" id="editor-title" placeholder="Titulo da nota..." class="editor-title-input">
                     <div class="editor-tags-display" id="editor-tags-display"></div>
                 </div>
                 <div class="editor-actions">
-                    <button id="btn-toggle-preview" class="btn-toolbar" title="Toggle preview">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <div class="editor-save-status" id="editor-save-status"></div>
+                    <button id="btn-toggle-preview" class="btn-toolbar" title="Toggle preview (Ctrl+E)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                     </button>
                     <button id="btn-save-note" class="btn-toolbar btn-accent" title="Salvar (Ctrl+S)">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
                         <span>Salvar</span>
                     </button>
                     <button id="btn-delete-note" class="btn-toolbar btn-danger" title="Deletar nota">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                     </button>
                 </div>
             </div>
-            <div class="editor-container">
-                <div class="editor-pane" id="editor-pane">
-                    <textarea id="editor-textarea" placeholder="Escreva em Markdown...&#10;&#10;Use [[nome]] para linkar notas&#10;Use #tag para categorizar"></textarea>
+            <div class="editor-body">
+                <div class="editor-container">
+                    <div class="editor-pane" id="editor-pane">
+                        <textarea id="editor-textarea" placeholder="Escreva em Markdown...&#10;&#10;Use [[nome]] para linkar notas&#10;Use #tag para categorizar" spellcheck="false"></textarea>
+                    </div>
+                    <div class="resize-handle" id="resize-handle"></div>
+                    <div class="preview-pane" id="preview-pane">
+                        <div id="preview-content" class="markdown-body"></div>
+                    </div>
                 </div>
-                <div class="preview-pane" id="preview-pane">
-                    <div id="preview-content" class="markdown-body"></div>
+                <!-- Properties Sidebar -->
+                <div class="properties-panel" id="properties-panel">
+                    <div class="props-section">
+                        <h4>Propriedades</h4>
+                        <div id="note-properties" class="props-grid"></div>
+                    </div>
+                    <div class="props-section">
+                        <h4>Backlinks</h4>
+                        <div id="editor-backlinks" class="backlinks-list"></div>
+                    </div>
+                    <div class="props-section">
+                        <h4>Notas similares</h4>
+                        <div id="similar-notes" class="similar-list"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="editor-backlinks" id="editor-backlinks">
-                <!-- Populated by JS -->
             </div>
         </div>
 
         <!-- Graph View -->
         <div id="view-graph" class="view">
             <div class="graph-toolbar">
-                <h2>Grafo de Conhecimento</h2>
+                <div class="graph-toolbar-left">
+                    <h2>Grafo de Conhecimento</h2>
+                    <div class="graph-legend" id="graph-legend"></div>
+                </div>
                 <div class="graph-controls">
+                    <label class="graph-toggle">
+                        <input type="checkbox" id="graph-show-clusters" checked>
+                        <span>Clusters</span>
+                    </label>
+                    <label class="graph-toggle">
+                        <input type="checkbox" id="graph-show-labels" checked>
+                        <span>Labels</span>
+                    </label>
+                    <label class="graph-toggle">
+                        <input type="checkbox" id="graph-show-arrows" checked>
+                        <span>Setas</span>
+                    </label>
                     <select id="graph-filter-tag" class="select-styled">
                         <option value="">Todas as tags</option>
                     </select>
-                    <button id="btn-graph-reset" class="btn-toolbar">Resetar zoom</button>
+                    <button id="btn-graph-reset" class="btn-toolbar">Resetar</button>
                 </div>
             </div>
             <div id="graph-container" class="graph-container">
                 <svg id="graph-svg"></svg>
+                <!-- Graph Tooltip -->
+                <div id="graph-tooltip" class="graph-tooltip hidden">
+                    <div class="gt-title"></div>
+                    <div class="gt-tags"></div>
+                    <div class="gt-stats"></div>
+                </div>
+                <!-- Context Menu -->
+                <div id="graph-context-menu" class="graph-context-menu hidden">
+                    <div class="gcm-item" data-action="open">Abrir nota</div>
+                    <div class="gcm-item" data-action="ego">Ver vizinhos</div>
+                    <div class="gcm-item" data-action="connect">Criar link para...</div>
+                    <div class="gcm-divider"></div>
+                    <div class="gcm-item" data-action="cluster">Highlight cluster</div>
+                </div>
+            </div>
+            <!-- Graph minimap -->
+            <div id="graph-info-panel" class="graph-info-panel">
+                <div id="graph-info-content"></div>
             </div>
         </div>
 
@@ -143,7 +243,7 @@
         <div id="view-context" class="view">
             <div class="context-header">
                 <h2>Construtor de Contexto IA</h2>
-                <p class="context-description">Selecione notas para gerar contexto estruturado para alimentar uma IA</p>
+                <p class="context-description">Selecione notas para gerar contexto estruturado para alimentar uma IA. Links semanticos sao incluidos automaticamente.</p>
             </div>
             <div class="context-layout">
                 <div class="context-select-panel">
@@ -151,9 +251,7 @@
                         <h3>Selecionar Notas</h3>
                         <input type="text" id="context-search" placeholder="Filtrar notas..." class="input-styled">
                     </div>
-                    <div id="context-note-list" class="context-note-list">
-                        <!-- Checkboxes populated by JS -->
-                    </div>
+                    <div id="context-note-list" class="context-note-list"></div>
                     <div class="context-options">
                         <h3>Opcoes</h3>
                         <div class="option-group">
@@ -164,11 +262,13 @@
                         </div>
                         <div class="option-group">
                             <label class="option-label">Profundidade dos links</label>
-                            <input type="range" id="ctx-depth" min="0" max="3" value="1" class="range-styled">
-                            <span id="ctx-depth-value">1</span>
+                            <div class="range-group">
+                                <input type="range" id="ctx-depth" min="0" max="3" value="1" class="range-styled">
+                                <span id="ctx-depth-value" class="range-value">1</span>
+                            </div>
                         </div>
                         <div class="option-group">
-                            <label class="option-label">Formato de saida</label>
+                            <label class="option-label">Formato</label>
                             <select id="ctx-format" class="select-styled">
                                 <option value="xml">XML (recomendado para Claude)</option>
                                 <option value="markdown">Markdown</option>
@@ -176,17 +276,17 @@
                             </select>
                         </div>
                         <div class="option-group">
-                            <label class="option-label">Limite de tokens (estimado)</label>
+                            <label class="option-label">Limite de tokens</label>
                             <input type="number" id="ctx-max-tokens" value="8000" class="input-styled" min="500" max="100000" step="500">
                         </div>
                         <div class="option-group">
                             <label class="option-label">
                                 <input type="checkbox" id="ctx-include-metadata" checked>
-                                <span>Incluir metadados (tags, links, datas)</span>
+                                <span>Incluir metadados</span>
                             </label>
                         </div>
                         <button id="btn-build-context" class="btn-primary">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
                             Gerar Contexto
                         </button>
                     </div>
@@ -195,9 +295,9 @@
                     <div class="context-output-header">
                         <h3>Contexto Gerado</h3>
                         <div class="context-output-stats" id="context-stats"></div>
-                        <button id="btn-copy-context" class="btn-toolbar" title="Copiar">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                            <span>Copiar</span>
+                        <button id="btn-copy-context" class="btn-toolbar">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            Copiar
                         </button>
                     </div>
                     <pre id="context-output" class="context-output"><code>Selecione notas e clique em "Gerar Contexto"</code></pre>
@@ -205,29 +305,61 @@
             </div>
         </div>
 
-        <!-- Tags View -->
-        <div id="view-tags" class="view">
-            <div class="tags-header">
-                <h2>Tags</h2>
+        <!-- Semantic View -->
+        <div id="view-semantic" class="view">
+            <div class="semantic-header">
+                <h2>Analise Semantica</h2>
+                <p class="semantic-description">Clusters automaticos, hubs de conhecimento, notas orfas e co-ocorrencia de tags</p>
             </div>
-            <div id="tags-container" class="tags-container">
-                <!-- Populated by JS -->
+            <div class="semantic-grid">
+                <div class="semantic-card">
+                    <div class="sc-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+                        <h3>Clusters Semanticos</h3>
+                    </div>
+                    <div id="semantic-clusters" class="sc-content"></div>
+                </div>
+                <div class="semantic-card">
+                    <div class="sc-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+                        <h3>Hubs (mais conectados)</h3>
+                    </div>
+                    <div id="semantic-hubs" class="sc-content"></div>
+                </div>
+                <div class="semantic-card">
+                    <div class="sc-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                        <h3>Notas Orfas</h3>
+                    </div>
+                    <div id="semantic-orphans" class="sc-content"></div>
+                </div>
+                <div class="semantic-card wide">
+                    <div class="sc-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/></svg>
+                        <h3>Co-ocorrencia de Tags</h3>
+                    </div>
+                    <div id="semantic-cooccurrence" class="sc-content"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Search Results View -->
+        <!-- Tags View -->
+        <div id="view-tags" class="view">
+            <div class="tags-header"><h2>Tags</h2></div>
+            <div id="tags-container" class="tags-container"></div>
+        </div>
+
+        <!-- Search Results -->
         <div id="view-search" class="view">
             <div class="search-header">
-                <h2>Resultados da Busca</h2>
+                <h2>Resultados</h2>
                 <span id="search-query-display"></span>
             </div>
-            <div id="search-results" class="search-results">
-                <!-- Populated by JS -->
-            </div>
+            <div id="search-results" class="search-results"></div>
         </div>
     </main>
 
-    <!-- Toast notifications -->
+    <!-- Toast -->
     <div id="toast-container" class="toast-container"></div>
 
     <!-- New Note Modal -->
@@ -241,13 +373,11 @@
             </div>
             <div class="modal-body">
                 <input type="text" id="new-note-title" placeholder="Titulo da nota..." class="input-styled input-lg" autofocus>
-                <div class="modal-tags">
-                    <input type="text" id="new-note-tags" placeholder="Tags (separadas por virgula)..." class="input-styled">
-                </div>
+                <input type="text" id="new-note-tags" placeholder="Tags (separadas por virgula)..." class="input-styled">
             </div>
             <div class="modal-footer">
                 <button class="btn-secondary" id="modal-cancel">Cancelar</button>
-                <button class="btn-primary" id="modal-create">Criar Nota</button>
+                <button class="btn-primary" id="modal-create" style="width:auto;padding:8px 24px">Criar</button>
             </div>
         </div>
     </div>
@@ -255,9 +385,19 @@
     <!-- Command Palette -->
     <div id="command-palette" class="command-palette hidden">
         <div class="command-palette-inner">
-            <input type="text" id="command-input" placeholder="Buscar notas, comandos..." autocomplete="off">
+            <div class="cp-input-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <input type="text" id="command-input" placeholder="Buscar notas..." autocomplete="off">
+            </div>
             <div id="command-results" class="command-results"></div>
         </div>
+    </div>
+
+    <!-- Wikilink Hover Preview -->
+    <div id="link-preview" class="link-preview hidden">
+        <div class="lp-title"></div>
+        <div class="lp-tags"></div>
+        <div class="lp-content"></div>
     </div>
 
     <script src="/static/js/api.js"></script>
