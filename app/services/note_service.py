@@ -82,6 +82,9 @@ def create_note(title: str, content: str = "", tags: list[str] | None = None) ->
 
         _sync_links_tags(conn, note_id, content, tags or [])
 
+    # Index in vector store (non-blocking, graceful if unavailable)
+    _vector_index(note_id, title, content, tags or [])
+
     return get_note(note_id)
 
 
@@ -113,6 +116,9 @@ def update_note(note_id: str, title: str | None = None, content: str | None = No
 
         _sync_links_tags(conn, note_id, new_content, tags)
 
+    # Re-index in vector store
+    _vector_index(note_id, new_title, new_content, tags)
+
     return get_note(note_id)
 
 
@@ -129,7 +135,10 @@ def delete_note(note_id: str) -> bool:
         conn.execute("DELETE FROM links WHERE source_id = ?", (note_id,))
         conn.execute("DELETE FROM tags WHERE note_id = ?", (note_id,))
         conn.execute("DELETE FROM notes WHERE id = ?", (note_id,))
-        return True
+
+    # Remove from vector store
+    _vector_remove(note_id)
+    return True
 
 
 def scan_vault():
@@ -190,6 +199,26 @@ def _sync_links_tags(conn, note_id: str, content: str, tags: list[str]):
             "INSERT OR REPLACE INTO tags (note_id, tag) VALUES (?, ?)",
             (note_id, tag.lower())
         )
+
+
+def _vector_index(note_id: str, title: str, content: str, tags: list[str]):
+    """Index note in vector store. Graceful no-op if service is unavailable."""
+    try:
+        from app.services.vector_service import index_note, is_available
+        if is_available():
+            index_note(note_id, title, content, tags)
+    except Exception:
+        pass  # Vector indexing is non-critical
+
+
+def _vector_remove(note_id: str):
+    """Remove note from vector store. Graceful no-op if service is unavailable."""
+    try:
+        from app.services.vector_service import remove_note, is_available
+        if is_available():
+            remove_note(note_id)
+    except Exception:
+        pass  # Vector removal is non-critical
 
 
 def _write_md(path: Path, title: str, content: str, tags: list[str]):
